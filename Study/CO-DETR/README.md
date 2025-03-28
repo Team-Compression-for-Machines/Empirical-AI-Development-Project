@@ -12,12 +12,14 @@
 - Set을 직접 예측하는 방식 제안
 
 ### 기존 Object Detection 방법론
+![결과이미지](./data/1.png)
 1) Anchor 기반 탐지
 2) Bounding Box 예측 과정
 3) Many-to-One 문제
 4) NMS(Non-Maximum Suppression) 필요성
 
-### DETR(Object Detection with Transformers) 특징  
+### DETR(Object Detection with Transformers) 특징
+![결과이미지](./data/2.png)
 1) Hand-crafted Anchor 미사용  
   - 기존 방식처럼 여러 크기의 anchor를 직접 정의하지 않음  
 
