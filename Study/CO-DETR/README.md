@@ -11,12 +11,16 @@
 - 기존 복잡한 pipeline을 간소화
 - Set을 직접 예측하는 방식 제안
 
+<br>
+
 ### 기존 Object Detection 방법론
 ![결과이미지](./1.png)
 1) Anchor 기반 탐지
 2) Bounding Box 예측 과정
 3) Many-to-One 문제
 4) NMS(Non-Maximum Suppression) 필요성
+
+<br>
 
 ### DETR(Object Detection with Transformers) 특징
 ![결과이미지](./2.png)
