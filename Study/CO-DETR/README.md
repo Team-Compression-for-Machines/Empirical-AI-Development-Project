@@ -1,5 +1,5 @@
 # DETR
-### DETR의 Object Detection 접근법
+### 1️⃣ DETR의 Object Detection 접근법
 1) **Object Detection을 Set 예측 문제로 정의**
 - Bounding box(B)와 Category(C)로 구성된 집합(Set) G 예측
 - 즉, G = {(B₀, C₀), (B₁, C₁), ..., (Bₙ, Cₙ)}
@@ -13,7 +13,7 @@
 
 <br>
 
-### 기존 Object Detection 방법론
+### 2️⃣ 기존 Object Detection 방법론
 ![결과이미지](./1.png)
 1) **Anchor 기반 탐지**
   - 사전 정의된 anchor 사용
@@ -38,7 +38,7 @@
 
 <br>
 
-### DETR(Object Detection with Transformers) 특징
+### 3️⃣ DETR(Object Detection with Transformers) 특징
 ![결과이미지](./2.png)
 1) **Hand-crafted Anchor 미사용**  
   - 기존 방식처럼 여러 크기의 anchor를 직접 정의하지 않음  
@@ -58,26 +58,29 @@
 <br>
 
 # CO-DETR
-### 1. 기존 DETR의 한계점
-1) Convergence 속도 문제
+### 1️⃣ 기존 DETR의 한계점
+1) **Convergence 속도 문제** 
 - 기존 DETR은 학습 속도가 느려 50 epoch 이상이 필요함.
 - 주된 원인은 one-to-one matching 전략이 학습 초기에는 불안정하여, 효과적으로 학습되지 않기 때문.
 
-2) Detection 성능의 한계
+2) **Detection 성능의 한계**
 - 기존 DETR은 중복된 예측이 없다는 장점이 있지만, 그로 인해 일부 객체를 제대로 탐지하지 못할 수 있음.
 - 즉, high-recall을 달성하기 어려운 문제가 발생.
 
-### 2. CHATr: Collaborative Hybrid Assignments Training
+<br>
+
+
+### 2️⃣ CHATr: Collaborative Hybrid Assignments Training
 - DETR의 느린 수렴 문제를 해결하기 위해 Hybrid Matching 전략을 도입
 
-1) 핵심 아이디어
-- 기존 DETR의 one-to-one matching 방식과 기존 many-to-one matching 방식을 결합
-- 학습 과정에서 one-to-one matching과 many-to-one matching을 함께 사용하여 학습을 안정화
+1) **핵심 아이디어**
+- 기존 DETR의 one-to-one matching 방식 + 기존 many-to-one matching 방식 결합
+- 학습 과정에서 one-to-one matching & many-to-one matching 함께 사용 → 학습 안정화
 
-2) Hybrid Matching 방식
+2) **Hybrid Matching 방식**
 - One-to-One Matching (DETR 방식)
-  - Hungarian Matching을 사용하여 ground truth와 하나의 예측을 강하게 매칭
-  - 중복된 예측을 방지하지만 학습이 어려운 단점이 있음
+  - Hungarian Matching 사용 → ground truth와 하나의 예측을 강하게 매칭
+  - 중복된 예측을 방지하지만, 학습이 어려운 단점이 있음
 
 - Many-to-One Matching (Anchor 방식과 유사)
   - 하나의 ground truth에 대해 여러 개의 예측을 학습하도록 설계
@@ -87,28 +90,34 @@
   - 초반 학습: Many-to-One Matching이 dominant → 학습 안정화
   - 후반 학습: One-to-One Matching으로 점차 전환 → 중복 예측 제거
 
-### 3. CHATr 구조 및 학습 과정
+<br>
+
+### 3️⃣ CHATr 구조 및 학습 과정
 ![결과이미지](./3.png)
-1) DETR 기반 아키텍처 유지
+1) **DETR 기반 아키텍처 유지**
 - 기존 DETR 구조를 유지하면서, hybrid matching 방식을 적용하여 학습 진행
 
-2) Loss Function 개선
+2) **Loss Function 개선**
 - 기존 DETR의 Hungarian Loss에 Many-to-One Matching Loss를 추가하여 학습 안정화
 - 학습 초기에 다양한 예측을 활용하여 학습 속도 개선
 
-### 4. 실험 결과
-(1) 학습 속도 개선
+<br>
+
+### 4️⃣ 실험 결과
+(1) **학습 속도 개선**
 - 기존 DETR 대비 50% 이상 빠른 수렴 속도
 - 기존 50 epoch 필요 → CHATr는 25 epoch 내 수렴
 
-(2) 성능 향상
+(2) **성능 향상**
 - 기존 DETR 대비 AP(Accuracy) 향상
 - 특히 작은 객체 탐지에서 성능이 개선됨
 
-(3) Computational Cost 유지
+(3) **Computational Cost 유지**
 - 기존 DETR과 유사한 연산량을 유지하면서도 성능 개선
 
-### 5. 결론 및 의의
+<br>
+
+### 5️⃣ 결론 및 의의
 - DETR의 느린 수렴 문제를 해결하기 위해 Hybrid Matching 전략을 도입
 - 학습 초기에 Many-to-One Matching을 활용하여 학습을 안정화하고, 후반에는 One-to-One Matching으로 전환
 - 결과적으로 학습 속도 개선, 성능 향상, 기존 DETR 구조 유지라는 장점을 가짐
